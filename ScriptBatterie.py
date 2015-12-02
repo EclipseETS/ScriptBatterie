@@ -8,13 +8,19 @@ class Cells(object):
         self.number = number
         self.capacity = capacity
         self.intRes = intRes
-        
+
+moduleQty = int(input("Nombre de module?"))
+cellQty = int(input("Nombre de Cellules par module?"))
+packCellQty = moduleQty*cellQty
         
 #generate random value
 # need to be replaced by file parsing
 cells_list = []
-for boxIndex in range (1,21):
-    for numberIndex in range (1,31):
+boxQty = 20
+boxCellQty = 30
+totCellQty = boxQty*boxCellQty
+for boxIndex in range (1,boxQty+1):
+    for numberIndex in range (1,boxCellQty+1):
         rCap=random.randint(3200,3350)
         rIntRes=random.randint(20,80)
         cells_list.append(Cells(boxIndex,numberIndex,rCap,rIntRes))
@@ -24,13 +30,13 @@ ascended_cells_list = sorted(cells_list, key=lambda c: c.capacity)
 
 #remove cells with the worst capacity
 best_cells = []
-for i in range (0,418):
-    best_cells.append(ascended_cells_list[i+(600-418)])
+for i in range (0,packCellQty):
+    best_cells.append(ascended_cells_list[i+(totCellQty-packCellQty)])
 
-#split the list in 11 list of 38
+#split the list in 11 list of moduleQty
 capacity_group = []
-for i in range(0, len(best_cells), 38):
-        capacity_group.append(best_cells[i:i+38])
+for i in range(0, len(best_cells), moduleQty):
+        capacity_group.append(best_cells[i:i+moduleQty])
 
 #class internal resistance by ascending order for each group  
 for i in range (0,len(capacity_group)):
@@ -40,8 +46,8 @@ for i in range (0,len(capacity_group)):
 #Make module by matching the internal resistance of each capacity group
 Module_list = []
 module = []
-for i in range (0,38):
-    for j in range (0,11):
+for i in range (0,moduleQty):
+    for j in range (0,cellQty):
         module.append(capacity_group[j][i])
     Module_list.append(module)
     module = [] #clear module
