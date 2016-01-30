@@ -21,8 +21,6 @@ for num, line in enumerate(file):
     result.loc[num]=list
 file.close()
 
-#La variance représente le niveau d'écart des données avec la moyenne.
-#Pour optimiser les groupes de cellules, on cherche à avoir la plus petite variance de résistance interne
 #La variable final représente la performance MOYENNE de chaque cellule pour X salve de test
 #ex: résistance interne moyenne de la cellule 1 pour 9 salve
 final=result.groupby('Cellule')['InternalRes','Capacity'].mean()
