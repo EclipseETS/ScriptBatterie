@@ -14,3 +14,11 @@ for num, line in enumerate(file):
     list[3]=str(list[3])[9:-1]
     result.loc[num]=list
 file.close()
+
+#La variance représente le niveau d'écart des données avec la moyenne.
+#Pour optimiser les groupes de cellules, on cherche à avoir la plus petite variance de résistance interne
+
+final=result.groupby('Cellule')['InternalRes','Capacity'].mean()
+final=final.sort_values('Capacity', ascending=False)
+final['index'] = range(1, len(final) + 1)
+final = final[final['index'] < 418]
