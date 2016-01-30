@@ -33,3 +33,6 @@ final=final.sort_values('Capacity', ascending=False)
 final['index'] = range(1, len(final) + 1)
 final = final[final['index'] < 418]
 
+#Divise les cellules en 38 groupes
+final = final.sort_values('InternalRes')
+groups = [final.iloc[i:i+11] for i in range(0, 418, 11)]
